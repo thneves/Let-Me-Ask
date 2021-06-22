@@ -13,13 +13,13 @@ type AuthContextType = {
 }
 
 type AuthContextProviderProps = {
-  children: ReactNode;
+  children: ReactNode; // When passing Components as children
 }
 
-export const AuthContext = createContext({} as AuthContextType);
+export const AuthContext = createContext({} as AuthContextType); // The context I will export 
 
 
-export function AuthContextProvider(props: AuthContextProviderProps) {
+export function AuthContextProvider(props: AuthContextProviderProps) { // Context I will export to other components
 
   const [user, setUser] = useState<User>(); // <User> set the type of User to the function;
 
@@ -57,7 +57,7 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
         throw new Error('Missing information from Google Account.')
       }
 
-      setUser({  //set user info new State fom result.user new object
+      setUser({  //set user info new State from result.user new object
         id: uid,
         name: displayName,
         avatar: photoURL,
