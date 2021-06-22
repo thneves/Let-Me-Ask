@@ -1,6 +1,7 @@
 import { useHistory } from 'react-router-dom' //create path for buttton
+import { useContext } from 'react'; //context I wanna use from CreateContext in App
 
-import { auth, firebase } from '../services/firebase';
+import { AuthContext } from '../App'
 
 import illustrationImg from '../assets/images/illustration.svg';
 import logoImg from '../assets/images/logo.svg';
@@ -10,14 +11,13 @@ import { Button } from '../components/Button';
 
 export function Home() {
 
-  const history = useHistory(); //HOOK - all hooks must be inside the component
+  const history = useHistory(); //HOOK - all hooks must be inside the component - navigation
+  const { user, signInWithGoogle } = useContext(AuthContext);
 
-  function handleCreateRoom() { 
-    const provider = new firebase.auth.GoogleAuthProvider(); // Basic Firebase authentication
-
-    auth.signInWithPopup(provider).then(result => { 
-      console.log(result)
-    })
+  async function handleCreateRoom() {
+    if (!user) {
+      await signInWithGoogle();
+    }
 
     history.push('/rooms/new')   // choose path navigation
   }
@@ -40,7 +40,7 @@ export function Home() {
           <form>
             <input
               type="text"
-              placeholder="Type the room's code"  
+              placeholder="Type the room's code"
             />
             <Button type="submit">
               Join room

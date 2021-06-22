@@ -1,10 +1,16 @@
 import { Link } from 'react-router-dom'; // Alternative to anchor tag in JSX.
+import { useContext } from 'react';
 import '../styles/auth.scss';
 import { Button } from '../components/Button';
 import illustrationImg from '../assets/images/illustration.svg';
 import logoImg from '../assets/images/logo.svg';
+import { AuthContext } from '../App';
+
 
 export function NewRoom() {
+
+  const { user } = useContext(AuthContext);
+
   return (
     <div id="page-auth">
       <aside>
@@ -15,6 +21,7 @@ export function NewRoom() {
       <main>
         <div className="main-content">
           <img src={logoImg} alt="letmeask logo" />
+          <h1>{user?.name}</h1>
           <h2>Create new Room</h2>
           <div></div>
           <form action="">
