@@ -1,12 +1,14 @@
-// import { Home } from "./pages/Home";
-
+import { BrowserRouter, Route } from 'react-router-dom';
+import { Home } from "./pages/Home";
 import { NewRoom } from "./components/NewRoom";
 
 function App() {
   return (
     <div>
-      {/* <Home /> */}
-      <NewRoom />
+      <BrowserRouter>
+        <Route path="/" exact component={Home} />
+        <Route path="/rooms/new" component={NewRoom} />
+      </BrowserRouter>
     </div>
   );
 }

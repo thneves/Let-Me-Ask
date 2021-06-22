@@ -1,3 +1,4 @@
+import { useHistory } from 'react-router-dom' //create path for buttton
 import illustrationImg from '../assets/images/illustration.svg';
 import logoImg from '../assets/images/logo.svg';
 import googleIconImg from '../assets/images/google-icon.svg';
@@ -5,6 +6,13 @@ import '../styles/auth.scss'
 import { Button } from '../components/Button';
 
 export function Home() {
+
+  const history = useHistory(); //HOOK - all hooks must be inside the component
+
+  function navigateToNewRoom() {
+    history.push('/rooms/new')   // Function to choose path navigation
+  }
+
   return (
     <div id="page-auth">
       <aside>
@@ -15,7 +23,7 @@ export function Home() {
       <main>
         <div className="main-content">
           <img src={logoImg} alt="let me ask logo" />
-          <button className="create-room">
+          <button onClick={navigateToNewRoom} className="create-room">
             <img src={googleIconImg} alt="Google logo" />
             Create your room with Google
           </button>

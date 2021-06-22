@@ -1,15 +1,16 @@
-import React from 'react';
+import { Link } from 'react-router-dom'; // Alternative to anchor tag in JSX.
 import '../styles/auth.scss';
 import { Button } from '../components/Button';
+import illustrationImg from '../assets/images/illustration.svg';
 import logoImg from '../assets/images/logo.svg';
 
 export function NewRoom() {
   return (
     <div id="page-auth">
       <aside>
-        <img src="" alt="" />
-        <strong></strong>
-        <p></p>
+        <img src={illustrationImg} alt="let me ask illustration" />
+        <strong>Create real time Q&amp;A room chats</strong>
+        <p>Answer your audience questions in real time.</p>
       </aside>
       <main>
         <div className="main-content">
@@ -25,7 +26,7 @@ export function NewRoom() {
               Create new room
             </Button>
           </form>
-          <p>Wanna join an existing room? <a href="#">click here</a></p>
+          <p>Wanna join an existing room? <Link to="/">click here</Link></p> {/* react router dom Link alternative to anchor tag */}
         </div>
       </main>
     </div>
