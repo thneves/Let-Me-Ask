@@ -2,6 +2,7 @@ import illustrationImg from '../assets/images/illustration.svg';
 import logoImg from '../assets/images/logo.svg';
 import googleIconImg from '../assets/images/google-icon.svg';
 import '../styles/auth.scss'
+import { Button } from '../components/Button';
 
 export function Home() {
   return (
@@ -19,14 +20,14 @@ export function Home() {
             Create your room with Google
           </button>
           <div className="separator">or join another room</div>
-          <form action='/'>
+          <form>
             <input
               type="text"
               placeholder="Type the room's code"  
             />
-            <button type="submit">
+            <Button type="submit">
               Join room
-            </button>
+            </Button>
           </form>
         </div>
       </main>
