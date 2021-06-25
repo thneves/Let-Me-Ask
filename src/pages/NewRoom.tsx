@@ -1,5 +1,5 @@
 import { FormEvent, useState } from 'react';
-import { Link } from 'react-router-dom'; // Alternative to anchor tag in JSX.
+import { Link, useHistory } from 'react-router-dom'; // Alternative to anchor tag in JSX.
 
 import '../styles/auth.scss';
 
@@ -14,8 +14,8 @@ import { useAuth } from '../hooks/useAuth';
 export function NewRoom() {
 
   const { user } = useAuth();
-
   const [newRoom, setNewRoom] = useState('');
+  const history = useHistory();
 
   async function handleCreateRoom(event: FormEvent) {
     event.preventDefault();
@@ -31,6 +31,7 @@ export function NewRoom() {
       authorId: user?.id,
     })
 
+    history.push(`/rooms/${firebaseRoom.key}`)
   }
 
   return (
