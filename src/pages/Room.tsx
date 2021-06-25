@@ -3,6 +3,9 @@ import { useParams } from 'react-router-dom';
 import { Button } from '../components/Button';
 import '../styles/room.scss';
 import { RoomCode } from '../components/RoomCode';
+import { FormEvent, useState } from 'react';
+import { useAuth } from '../hooks/useAuth';
+import { database } from '../services/firebase';
 
 
 type RoomParams = {
@@ -10,15 +13,43 @@ type RoomParams = {
 }
 
 export function Room() {
-
+  const { user } = useAuth();
   const params = useParams<RoomParams>();
+  const roomId = params.id;
+
+  const [newQuestion, setNesQuestion] = useState('');
+
+
+  async function handleSendQuestion(event: FormEvent) {
+    event.preventDefault();
+
+    if (newQuestion.trim() === '') {
+      return;
+    }
+
+    if (!user) {
+      throw new Error('You mus be logged in.')
+    }
+
+    const question = {
+      content: newQuestion,
+      author: {
+        name: user.name,
+        avatar: user.avatar,  
+      },
+      isHighLightned: false,
+      isAnswered: false  // Determine if the question was answered or not.
+    }
+
+    await database.ref(`rooms/${roomId}/questions`).push(question)
+  }
 
   return (
     <div id="page-room">
       <header>
         <div className="content">
           <img src={logoImg} alt="letmeask logo" />
-          <RoomCode code={params.id} />
+          <RoomCode code={roomId} />
         </div>
       </header>
 
@@ -28,13 +59,15 @@ export function Room() {
           <span>4 questions</span>
         </div>
 
-        <form>
+        <form onSubmit={handleSendQuestion}>
           <textarea
             placeholder="What's your questions?"
+            onChange={event => setNesQuestion(event.target.value)}
+            value={newQuestion}
           />
           <div className="form-footer">
-            <span>To send a question, <button>please, log in.</button></span>
-            <Button type="submit">Send Question</Button>
+            <span>To send a question, <button>please log in.</button></span>
+            <Button type="submit" disabled={!user}>Send Question</Button>
           </div>
         </form>
       </main>
