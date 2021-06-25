@@ -1,5 +1,9 @@
-import { useHistory } from 'react-router-dom' //create path for buttton
+import { useHistory } from 'react-router-dom'; //create path for buttton
+import { FormEvent, useState } from 'react';
+
 import { useAuth } from '../hooks/useAuth';
+
+import { database } from '../services/firebase'
 
 import illustrationImg from '../assets/images/illustration.svg';
 import logoImg from '../assets/images/logo.svg';
@@ -12,12 +16,31 @@ export function Home() {
   const history = useHistory(); //HOOK - all hooks must be inside the component - navigation
   const { user, signInWithGoogle } = useAuth();
 
+  const [roomCode, setRoomCode] = useState('');
+
   async function handleCreateRoom() {
     if (!user) {
       await signInWithGoogle();
     }
 
     history.push('/rooms/new')   // choose path navigation
+  }
+
+  async function handleJoinRoom(event: FormEvent) {
+    event.preventDefault();
+
+    if (roomCode.trim() === '') {
+      return;
+    }
+
+    const roomRef = await database.ref(`rooms/${roomCode}`).get();
+
+    if (!roomRef.exists()) {
+      alert('Room not found');
+      return;
+    }
+
+    history.push(`/rooms/${roomCode}`)
   }
 
   return (
@@ -35,10 +58,12 @@ export function Home() {
             Create your room with Google
           </button>
           <div className="separator">or join another room</div>
-          <form>
+          <form onSubmit={handleJoinRoom}>
             <input
               type="text"
               placeholder="Type the room's code"
+              onChange={event => setRoomCode(event.target.value)}
+              value={roomCode}
             />
             <Button type="submit">
               Join room
