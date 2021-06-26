@@ -17,7 +17,7 @@ export function Room() {
   const params = useParams<RoomParams>();
   const roomId = params.id;
 
-  const [newQuestion, setNesQuestion] = useState('');
+  const [newQuestion, setNewQuestion] = useState('');
 
 
   async function handleSendQuestion(event: FormEvent) {
@@ -42,6 +42,8 @@ export function Room() {
     }
 
     await database.ref(`rooms/${roomId}/questions`).push(question)
+
+    setNewQuestion('');
   }
 
   return (
@@ -62,11 +64,18 @@ export function Room() {
         <form onSubmit={handleSendQuestion}>
           <textarea
             placeholder="What's your questions?"
-            onChange={event => setNesQuestion(event.target.value)}
+            onChange={event => setNewQuestion(event.target.value)}
             value={newQuestion}
           />
-          <div className="form-footer">
-            <span>To send a question, <button>please log in.</button></span>
+          <div className="form-footer"> { /* ternary operator*/}
+            { user ? (
+              <div className="user-info">
+                <img src={user.avatar} alt={user.name} />
+                <span>{user.name}</span>
+              </div>
+            ) : (
+              <span>To send a question, <button>please, log in.</button></span>
+            ) }
             <Button type="submit" disabled={!user}>Send Question</Button>
           </div>
         </form>
