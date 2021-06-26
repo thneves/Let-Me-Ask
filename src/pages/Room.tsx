@@ -46,6 +46,12 @@ export function Room() {
   useEffect(() => {
     const roomRef = database.ref(`rooms/${roomId}`);
 
+    // Firebase has 4 references for events: value(all information), child_added, child_changed, child_removed - child values is better when we have more than one info inside the reference
+    // For instance, in case of questions would be better to use child events for its alterations properties.
+
+    // .on -  is always listening the event.
+    // .once - well just one time.
+
     roomRef.on('value', room => { // From Firebase documentation, retrieve information event listener.
       const databaseRoom = room.val();
       const firebaseQuestions = databaseRoom.questions as FirebaseQuestions ?? {}; //typescript
