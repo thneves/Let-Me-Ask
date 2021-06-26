@@ -1,0 +1,8 @@
+Object.entries() returns an array of elements in strings
+
+const obj = {
+  "name": "Thales",
+  "age": 29
+}
+
+Object.entries(obj)  [ ["name","Thales"], ["age", 29] ]
