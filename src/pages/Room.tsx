@@ -7,6 +7,7 @@ import { FormEvent, useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { database } from '../services/firebase';
 import { useEffect } from 'react';
+import { Question } from '../components/Question';
 
 
 type FirebaseQuestions = Record<string, {
@@ -130,9 +131,17 @@ export function Room() {
             <Button type="submit" disabled={!user}>Send Question</Button>
           </div>
         </form>
-
-
-        {JSON.stringify(questions)}
+        <div className="question-list">
+          {questions.map( question => {
+            return (
+              <Question
+                key={question.id} // The way react identify one 'question' to another - use every time with lists - Reconlitiation Algorithm React Documentation.
+                content={question.content}
+                author={question.author}
+              />
+            );
+        })}
+        </div>        
       </main>
     </div>
   )
