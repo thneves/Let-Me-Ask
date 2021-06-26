@@ -24,7 +24,7 @@ export function AuthContextProvider(props: AuthContextProviderProps) { // Contex
   const [user, setUser] = useState<User>(); // <User> set the type of User to the function;
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => { // Every time I declare and event listener inside use effect you have to 'unsubscribe' from the event listener in the end of the function
+    const unsubscribe = auth.onAuthStateChanged(user => { // Every time I declare an event listener inside use effect you have to 'unsubscribe' from the event listener in the end of the function
       if (user) {
         const { displayName, photoURL, uid } = user // transform into User object params
 
