@@ -6,30 +6,9 @@ import { RoomCode } from '../components/RoomCode';
 import { FormEvent, useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { database } from '../services/firebase';
-import { useEffect } from 'react';
 import { Question } from '../components/Question';
+import { useRoom } from '../hooks/useRoom';
 
-
-type FirebaseQuestions = Record<string, {
-  author: {
-    name: string;
-    avatar: string;
-  }
-  content: string;
-  isAnswered: boolean;
-  isHighlighted: boolean;
-}>
-
-type Question = {
-  id: string;
-  author: {
-    name: string;
-    avatar: string;
-  }
-  content: string;
-  isAnswered: boolean;
-  isHighlighted: boolean;
-}
 
 type RoomParams = {
   id: string;
@@ -39,39 +18,11 @@ export function Room() {
   const { user } = useAuth();
   const params = useParams<RoomParams>();
   const [newQuestion, setNewQuestion] = useState('');
-  const [questions, setQuestion] = useState<Question[]>([]);
-  const [title, setTitle] = useState('');
-  
+
   const roomId = params.id;
 
-  useEffect(() => {
-    const roomRef = database.ref(`rooms/${roomId}`);
-
-    // Firebase has 4 references for events: value(all information), child_added, child_changed, child_removed - child values is better when we have more than one info inside the reference
-    // For instance, in case of questions would be better to use child events for its alterations properties.
-
-    // .on -  is always listening the event.
-    // .once - well just one time.
-
-    roomRef.on('value', room => { // From Firebase documentation, retrieve information event listener.
-      const databaseRoom = room.val();
-      const firebaseQuestions = databaseRoom.questions as FirebaseQuestions ?? {}; //typescript
-
-      const parsedQuestions = Object.entries(firebaseQuestions).map(([key, value]) => {
-        return {
-          id: key,
-          content: value.content,
-          author: value.author,
-          isHighlighted: value.isHighlighted,
-          isAnswered: value.isAnswered
-        }
-      })
-
-      setTitle(databaseRoom.title);
-      setQuestion(parsedQuestions);
-    })
-  }, [])
-
+  const { title, questions } = useRoom(roomId); 
+ 
   async function handleSendQuestion(event: FormEvent) {
     event.preventDefault();
 

@@ -1,0 +1,4 @@
+Hooks are used like components, it's made to be reused in different parts of the application.
+The difference is that hooks are functional parts of the application that will be reused instead of an visual part like a component.
+
+Can notice in the Hooks files is that there's no need for and .tsx file, cause it doesn't use JSX. So it can be only .ts a normal js/ts file.
