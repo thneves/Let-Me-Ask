@@ -49,10 +49,14 @@ export function Room() {
     setNewQuestion('');
   }
 
-  async function handleLikeQquestion(questionId: string) {
+  async function handleLikeQquestion(questionId: string, likeId: string | undefined) {
+    if(likeId) {
+      await database.ref(`rooms/${roomId}/questions/${questionId}/likes/${likeId}`).remove();
+    } else {
       await database.ref(`rooms/${roomId}/questions/${questionId}/likes`).push({
-      authorId: user?.id,
-    });
+        authorId: user?.id,
+      });
+    }
   }
 
   return (
@@ -97,10 +101,10 @@ export function Room() {
               author={question.author}
               >
              <button
-              className={`like-button ${question.hasLiked ? 'liked' : ''}`}
+              className={`like-button ${question.likeId ? 'liked' : ''}`}
               type="button"
               aria-label="Mark as liked"
-              onClick={() => handleLikeQquestion(question.id)}
+              onClick={() => handleLikeQquestion(question.id, question.likeId)}
              >
                { question.likeCount > 0 && <span>{question.likeCount}</span> }
                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
