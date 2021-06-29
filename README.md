@@ -1,15 +1,26 @@
 # Let Me Ask
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-This project was developed in the Next Level Week, free program designed by [@RocketSeat](https://github.com/rocketseat-education) to help developers learn by bulding projects and sharing knowledge and doubts through the community.
+![screenshot](screenshot.png)
 
-## Built With
+- Let Me Ask is perfect for content creators create Q&A rooms for their public. 
+- Admins can mark questions as answered, highlighted and delete questions.
+- Users can create and like questions.
+- Login with Google authentication.
+- To join rooms users need the rooms code, which can be clippboarded by the room admin.
+
+## 💻 Project
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+This project was developed in the Next Level Week, free program designed by [@RocketSeat](https://github.com/rocketseat-education) to help developers learn by bulding projects.
+
+## 🧪 Built With
 
 - React
 - TypeScript
 - Firebase
 
-## Run This Project In Your Local Machine:
+## 🚀 Run This Project In Your Local Machine:
 
 ### You need:
 
@@ -44,11 +55,12 @@ Contributions, issues, and feature requests are welcome!
 
 Feel free to check the [issues page]((https://github.com/thneves/City-Weather/issues)).
 
-## Show your support
+## 🔖 Show your support
 
 Give a ⭐️ if you like this project!
 
-## Acknowlegements
+## 📝 Acknowlegements
 
 - The idea of this app was developed by [@rocketseat](https://github.com/rocketseat-education)
 - Instructor [@Diego Fernandes](https://github.com/diego3g)
+- Layout Web [Figma](https://www.figma.com/file/5EwwWfALSlOn5o4LpwzB6l/Letmeask-Copy?fuid=869742879062948552)
