@@ -46,7 +46,7 @@ export function AdminRoom() {
 
   async function handleHighlightQuestion(questionId: string) {
     await database.ref(`rooms/${roomId}/questions/${questionId}`).update({
-      isHighLightned: true,
+      isHighLighted: true,
     })
   }
 
@@ -75,26 +75,32 @@ export function AdminRoom() {
                 key={question.id} // The way react identify one 'question' to another - use every time with lists - Reconlitiation Algorithm React Documentation.
                 content={question.content}
                 author={question.author}
-              >
-                <button
-                  type="button"
-                  onClick={() => handleCheckQuestionAsAnswered(question.id)}
-                >
-                  <img src={checkImg} alt="Mark question as answered" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleHighlightQuestion(question.id)}
-                >
-                  <img src={answerImg} alt="Highligh question" />
-                </button>
-                <button
+                isAnswered={question.isAnswered}
+                isHighLighted={question.isHighlighted}
+              > {!question.isAnswered && (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => handleCheckQuestionAsAnswered(question.id)}
+                  >
+                    <img src={checkImg} alt="Mark question as answered" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleHighlightQuestion(question.id)}
+                  >
+                    <img src={answerImg} alt="Highligh question" />
+                  </button>
+                </>
+              )}
+             { !question.isAnswered && (
+                  <button
                   type="button"
                   onClick={() => handleDeleteQuestion(question.id)}
                 >
                   <img src={deleteImg} alt="delete question" />
                 </button>
-
+             )}
               </Question>
             );
           })}

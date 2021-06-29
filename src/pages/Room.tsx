@@ -40,7 +40,7 @@ export function Room() {
         name: user.name,
         avatar: user.avatar,  
       },
-      isHighLightned: false,
+      isHighLighted: false,
       isAnswered: false  // Determine if the question was answered or not.
     }
 
@@ -99,6 +99,8 @@ export function Room() {
               key={question.id} // The way react identify one 'question' to another - use every time with lists - Reconlitiation Algorithm React Documentation.
               content={question.content}
               author={question.author}
+              isAnswered={question.isAnswered}
+              isHighLighted={question.isHighlighted}
               >
              <button
               className={`like-button ${question.likeId ? 'liked' : ''}`}
