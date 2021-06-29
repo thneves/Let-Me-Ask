@@ -23,4 +23,8 @@ yarn-debug.log*
 yarn-error.log*
 
 Rules.txt
+Object.entries.txt
+Hook.txt
+
+database.rules.json
 
