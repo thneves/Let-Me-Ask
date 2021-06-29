@@ -25,7 +25,6 @@ yarn-error.log*
 Rules.txt
 To-Do.txt
 logout.txt
-.firebase
 .sass-cache
 
 database.rules.json
