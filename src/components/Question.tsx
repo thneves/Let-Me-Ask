@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import '../styles/question.scss';
+import cx from 'classnames';
 
 type QuestionProps = {
   content: string;
@@ -8,12 +9,14 @@ type QuestionProps = {
     avatar: string;
   };
   children?: ReactNode;
+  isAnswered?: boolean;
+  isHighLighted?: boolean;
 }
 
-export function Question ({content, author, children}: QuestionProps) {
+export function Question ({content, author, children, isAnswered = false, isHighLighted = false}: QuestionProps) {
 
   return (
-    <div className="question">
+    <div className={cx('question', {answered: isAnswered}, {highlighted: isHighLighted && !isAnswered}) }>
       <p>{ content }</p>
       <footer>
         <div className="user-info">

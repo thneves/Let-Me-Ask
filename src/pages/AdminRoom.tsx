@@ -8,6 +8,8 @@ import { Question } from '../components/Question';
 import { useRoom } from '../hooks/useRoom';
 import deleteImg from '../assets/images/delete.svg'
 import { database } from '../services/firebase';
+import checkImg from '../assets/images/check.svg';
+import answerImg from '../assets/images/answer.svg';
 
 
 type RoomParams = {
@@ -31,9 +33,21 @@ export function AdminRoom() {
   }
 
   async function handleDeleteQuestion(questionId: string) {
-    if(window.confirm('Are you sure you want to delete this question?')){
-      const questionRef = await database.ref(`rooms/${roomId}/questions/${questionId}`).remove() 
+    if (window.confirm('Are you sure you want to delete this question?')) {
+      await database.ref(`rooms/${roomId}/questions/${questionId}`).remove()
     }
+  }
+
+  async function handleCheckQuestionAsAnswered(questionId: string) {
+    await database.ref(`rooms/${roomId}/questions/${questionId}`).update({
+      isAnswered: true,
+    })
+  }
+
+  async function handleHighlightQuestion(questionId: string) {
+    await database.ref(`rooms/${roomId}/questions/${questionId}`).update({
+      isHighLighted: true,
+    })
   }
 
   return (
@@ -42,8 +56,8 @@ export function AdminRoom() {
         <div className="content">
           <img src={logoImg} alt="letmeask logo" />
           <div>
-          <RoomCode code={roomId} />
-          <Button isOutlined onClick={handleEndRoom}>Finish Room</Button>
+            <RoomCode code={roomId} />
+            <Button isOutlined onClick={handleEndRoom}>Finish Room</Button>
           </div>
         </div>
       </header>
@@ -51,28 +65,46 @@ export function AdminRoom() {
       <main>
         <div className="room-title">
           <h1>Room: {title}</h1>
-          { questions.length > 0 && <span>{questions.length} questions</span> }
+          {questions.length > 0 && <span>{questions.length} questions</span>}
         </div>
 
         <div className="question-list">
-          {questions.map( question => {
+          {questions.map(question => {
             return (
               <Question
                 key={question.id} // The way react identify one 'question' to another - use every time with lists - Reconlitiation Algorithm React Documentation.
                 content={question.content}
                 author={question.author}
-              >
-                <button
+                isAnswered={question.isAnswered}
+                isHighLighted={question.isHighlighted}
+              > {!question.isAnswered && (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => handleCheckQuestionAsAnswered(question.id)}
+                  >
+                    <img src={checkImg} alt="Mark question as answered" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleHighlightQuestion(question.id)}
+                  >
+                    <img src={answerImg} alt="Highligh question" />
+                  </button>
+                </>
+              )}
+             { !question.isAnswered && (
+                  <button
                   type="button"
                   onClick={() => handleDeleteQuestion(question.id)}
                 >
                   <img src={deleteImg} alt="delete question" />
                 </button>
-
+             )}
               </Question>
             );
-        })}
-        </div>        
+          })}
+        </div>
       </main>
     </div>
   )
