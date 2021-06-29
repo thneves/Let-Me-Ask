@@ -23,8 +23,10 @@ yarn-debug.log*
 yarn-error.log*
 
 Rules.txt
-Object.entries.txt
-Hook.txt
+To-Do.txt
+logout.txt
+.firebase
+.sass-cache
 
 database.rules.json
 
