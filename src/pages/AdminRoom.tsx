@@ -46,7 +46,7 @@ export function AdminRoom() {
 
   async function handleHighlightQuestion(questionId: string) {
     await database.ref(`rooms/${roomId}/questions/${questionId}`).update({
-      isHighLighted: true,
+      isHighlighted: true,
     })
   }
 
@@ -76,7 +76,7 @@ export function AdminRoom() {
                 content={question.content}
                 author={question.author}
                 isAnswered={question.isAnswered}
-                isHighLighted={question.isHighlighted}
+                isHighlighted={question.isHighlighted}
               > {!question.isAnswered && (
                 <>
                   <button
@@ -92,15 +92,13 @@ export function AdminRoom() {
                     <img src={answerImg} alt="Highligh question" />
                   </button>
                 </>
-              )}
-             { !question.isAnswered && (
+              )}  
                   <button
                   type="button"
                   onClick={() => handleDeleteQuestion(question.id)}
                 >
                   <img src={deleteImg} alt="delete question" />
                 </button>
-             )}
               </Question>
             );
           })}

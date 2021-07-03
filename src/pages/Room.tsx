@@ -40,7 +40,7 @@ export function Room() {
         name: user.name,
         avatar: user.avatar,  
       },
-      isHighLighted: false,
+      isHighlighted: false,
       isAnswered: false  // Determine if the question was answered or not.
     }
 
@@ -100,7 +100,7 @@ export function Room() {
               content={question.content}
               author={question.author}
               isAnswered={question.isAnswered}
-              isHighLighted={question.isHighlighted}
+              isHighlighted={question.isHighlighted}
               >
              <button
               className={`like-button ${question.likeId ? 'liked' : ''}`}

@@ -10,13 +10,13 @@ type QuestionProps = {
   };
   children?: ReactNode;
   isAnswered?: boolean;
-  isHighLighted?: boolean;
+  isHighlighted?: boolean;
 }
 
-export function Question ({content, author, children, isAnswered = false, isHighLighted = false}: QuestionProps) {
+export function Question ({content, author, children, isAnswered = false, isHighlighted = false}: QuestionProps) {
 
   return (
-    <div className={cx('question', {answered: isAnswered}, {highlighted: isHighLighted && !isAnswered}) }>
+    <div className={cx('question', {answered: isAnswered}, {highlighted: isHighlighted && !isAnswered}) }>
       <p>{ content }</p>
       <footer>
         <div className="user-info">
