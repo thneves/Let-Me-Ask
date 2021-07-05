@@ -140,4 +140,22 @@
       margin-left: 16px;
     }
   }
+
+  .log-out {
+    height: 50px;
+    border-radius: 8px;
+    font-weight: 500;
+    background: #d654fd;
+    color: white;
+    padding: 0 32px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: 2s;
+    border: none;
+
+    &:hover {
+      background: #ca7ce2;
+    }
+  } 
 }
+

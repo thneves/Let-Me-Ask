@@ -7,7 +7,7 @@ import { Button } from '../components/Button';
 import illustrationImg from '../assets/images/illustration.svg';
 import logoImg from '../assets/images/logo.svg';
 
-import { database } from '../services/firebase';
+import { database, firebase } from '../services/firebase';
 import { useAuth } from '../hooks/useAuth';
 
 
@@ -34,6 +34,11 @@ export function NewRoom() {
     history.push(`/admin/rooms/${firebaseRoom.key}`)
   }
 
+  async function logOut() {
+    await firebase.auth().signOut();
+    history.push('/');
+  }
+
   return (
     <div id="page-auth">
       <aside>
@@ -58,6 +63,7 @@ export function NewRoom() {
             </Button>
           </form>
           <p>Wanna join an existing room? <Link to="/">click here</Link></p> {/* react router dom Link alternative to anchor tag */}
+          <button className="log-out" onClick={logOut}>Log Out.</button>
         </div>
       </main>
     </div>
