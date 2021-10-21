@@ -8,7 +8,7 @@
 - Login with Google authentication.
 - To join rooms users need the rooms code, which can be clippboarded by the room admin.
 
-[Let Me Ask](https://let-me-ask-f210b.web.ap)
+[Let Me Ask](https://let-me-ask-f210b.firebaseapp.com/)
 
 ## 💻 Project
 
